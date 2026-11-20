@@ -1,0 +1,54 @@
+### 1. Создать Пользователя (Ожидаем 201)
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "username": "Амаев Владимир",
+  "password": "secret123",
+  "role": "ADOPTER"
+}
+
+### 2. Создать Животное (Ожидаем 201)
+POST http://localhost:8080/api/animals
+Content-Type: application/json
+
+{
+  "name": "Мурзик",
+  "species": "Кошка",
+  "age": 1,
+  "placementStatus": "В приюте"
+}
+
+### 3. Создать Заявку на усыновление (Ожидаем 201)
+POST http://localhost:8080/api/adoption-applications
+Content-Type: application/json
+
+{
+  "animalId": 1,
+  "applicantId": 1,
+  "status": "На рассмотрении"
+}
+
+### 4. Создать Акт передачи (Ожидаем 201)
+POST http://localhost:8080/api/animal-handover-records
+Content-Type: application/json
+
+{
+  "applicationId": 1,
+  "status": "Подготовлен"
+}
+
+### 5. ПРОВЕРКА ЗАЩИТЫ (Ожидаем 409 Conflict!)
+DELETE http://localhost:8080/api/users/1
+
+### 6. ПРОВЕРКА ЗАЩИТЫ (Ожидаем 409 Conflict!)
+DELETE http://localhost:8080/api/animals/1
+
+### 7. Обновляем Акт передачи (Ожидаем 200)
+PATCH http://localhost:8080/api/animal-handover-records/1
+Content-Type: application/json
+
+{
+  "applicationId": 1,
+  "status": "CONFIRMED"
+}
